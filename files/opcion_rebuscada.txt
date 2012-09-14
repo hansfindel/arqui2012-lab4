@@ -1,0 +1,35 @@
+import os
+	ruta = self.get_path(self)
+
+		if os.path.exists(ruta):
+			archivo = open(ruta,'r')
+			data = archivo.read()
+		else:
+			data = open(ruta, 'w')
+			data.write("[]")
+			data.close()
+			data = "[]"
+
+
+					self.response.out.write("""
+		<html>
+            <body>
+              <form action="/" method="post">
+                <div><textarea name="body" rows="1" cols="60"></textarea></div>
+                <div><input type="submit" value="Agrega algo"></div>
+              </form>
+            </body>
+          </html>""")
+
+
+
+          Varios me han dicho que no les funciona el servidor o que el puerto 8080 está cerrado.
+
+Recuerden que 127.0.0.1 es loopback, es decir tu máquina (y solo visible desde su máquina). A lo que me refiero es que si corren el servicio en esa dirección no podrá ser visto desde afuera.
+
+Como les comenté en la ayudantía para que el servidor sea accesible desde afuera deben  usar la dirección 0.0.0.0
+
+
+
+ps -A | grep python
+y dale un kill

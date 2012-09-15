@@ -55,12 +55,39 @@ class UnitTests(unittest.TestCase):
         request.body = 'hola'
         response =request.get_response(main.app)
         self.assertEqual(response.status_int, 200)
+
+    def test_post_text2_con_db_utest(self):
+        with open('datos.json', 'w') as writer:
+            writer.write(json.dumps('{"mensajes":[]}'))
+        request = webapp2.Request.blank('/?path=datos.json')
+        request.method = 'POST'
+        request.headers['Content-Type'] = 'application/text'
+        request.body = '{"uno":1}'
+        response =request.get_response(main.app)
+        self.assertEqual(response.status_int, 200)
+
+    def test_post_text3_con_db_utest(self):
+        with open('datos.json', 'w') as writer:
+            writer.write(json.dumps('{"mensajes":[]}'))
+        request = webapp2.Request.blank('/?path=datos.json')
+        request.method = 'POST'
+        request.headers['Content-Type'] = 'application/text'
+        request.body = '{"uno":1, "dos":2}'
+        response =request.get_response(main.app)
+        self.assertEqual(response.status_int, 200)
         
     def test_post_json_sin_db_utest(self):
         request = webapp2.Request.blank('/?path=algo_nuevo.json')
         request.method = 'POST'
         request.headers['Content-Type'] = 'application/json'
         request.data = {"saludo":"holo"}
+        response =request.get_response(main.app)
+        self.assertEqual(response.status_int, 200)
+    def test_post_json2_sin_db_utest(self):
+        request = webapp2.Request.blank('/?path=algo_nuevo.json')
+        request.method = 'POST'
+        request.headers['Content-Type'] = 'application/json'
+        request.data = {"saludo":"holo", "saludo2":"holo2"}
         response =request.get_response(main.app)
         self.assertEqual(response.status_int, 200)
         

@@ -1,6 +1,6 @@
 import cgi
 import webapp2
-import requests
+#import requests
 import os
 import json
 
@@ -10,6 +10,7 @@ class Escribano(webapp2.RequestHandler):
 		path = self.get_path_from_url(params)
 		if self.exists_file(path):
 			import json
+			#data = self.leer(path)
 			data = self.leer_params(path, params)
 			self.response.write(json.dumps(data))
 			self.response.headers['Content-Type'] = 'application/json'

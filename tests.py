@@ -74,15 +74,6 @@ class TestMessages(unittest.TestCase):
 		response = request.get_response(main.app)
 		self.assertTrue(response)	
 
-	def test_escribir_formato_invalido_archivo_inexistente(self):
-		path = main.Escribano().get_path()
-		request = webapp2.Request.blank("/?files=holi.json")
-		request.data = "'hola':'holi'"
-		request.method = "POST"
-		request.headers['Content-Type'] = 'nada/otro'
-		response = request.get_response(main.app)
-		self.assertEquals(response.status_int, 404)	
-
 	def test_escribir_json_archivo_existente(self):
 		path = main.Escribano().get_path()
 		request = webapp2.Request.blank("/")

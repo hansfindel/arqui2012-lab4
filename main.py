@@ -76,8 +76,6 @@ class Escribano(webapp2.RequestHandler):
 		else:
 			self.escribir_texto(str(newline), npath)
 
-
-
 	def escribir_texto(self, newline, npath=None):
 		path = self.get_path(npath)
 		archivo = open(str(path), 'r')

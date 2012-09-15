@@ -75,7 +75,6 @@ class TestMessages(unittest.TestCase):
 		self.assertTrue(response)	
 
 	def test_escribir_json_archivo_existente(self):
-		path = main.Escribano().get_path()
 		request = webapp2.Request.blank("/")
 		request.data = {"author": "yo", "title": "digo", "message": "algo"}
 		request.method = "POST"
@@ -84,7 +83,6 @@ class TestMessages(unittest.TestCase):
 		response = request.get_response(main.app)
 		self.assertTrue(response)	
 	def test_escribir_json_text_archivo_existente(self):
-		path = main.Escribano().get_path()
 		request = webapp2.Request.blank("/")
 		request.data = "hola hola"
 		request.method = "POST"
@@ -94,7 +92,6 @@ class TestMessages(unittest.TestCase):
 		self.assertTrue(response)	
 
 	def test_escribir_texto_archivo_existente(self):
-		path = main.Escribano().get_path()
 		request = webapp2.Request.blank("/")
 		request.data = "'hola':'holi'"
 		request.method = "POST"

@@ -2,7 +2,7 @@ import cgi
 import webapp2
 import requests
 import os
-
+import json
 
 class Escribano(webapp2.RequestHandler): 
 	def get(self):
@@ -10,8 +10,8 @@ class Escribano(webapp2.RequestHandler):
 		path = self.get_path_from_url(params)
 		if self.exists_file(path):
 			import json
-			data = self.leer(path)
-			self.response.write(data)
+			data = self.leer_params(path, params)
+			self.response.write(json.dumps(data))
 			self.response.headers['Content-Type'] = 'application/json'
 		else: 
 			self.error(404)
@@ -46,6 +46,18 @@ class Escribano(webapp2.RequestHandler):
 						if key == "path":
 							path = value
 		return path
+	def get_read(self, params):
+		info = params.split("&")
+		read = False
+		for pair in info:
+			if not read:
+				key_value = pair.split("=")
+				if len(key_value) == 2:
+					key = key_value[0]
+					value = key_value[1]
+					if key == "read":
+						read = True
+		return read
 	def get_path(self, path=None):
 		if path != None: 
 			ruta = path			
@@ -65,6 +77,15 @@ class Escribano(webapp2.RequestHandler):
 		data = archivo.read()
 		archivo.close()
 		return data
+	def leer_params(self, path=None, params=None):
+		read = self.get_read(params)
+		if read:
+			print "holo"
+			new_path = self.get_path(path)
+			data = json.load(open(new_path))
+		else:
+			data = self.leer(path)
+		return data	
 	def crear_bbdd(self, path):
 		new_file = open(str(path), 'w')
 		new_file.write("new")
